@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "Form Data Getter",
+    "description": "gets form data",
+    "version": "1",
+    "background": {
+        "service_worker": "background.js"
+      },
+    "host_permissions":[
+        "http://*/*", 
+        "https://*/*"
+    ],
+    "permissions": [
+        "webRequest"
+    ]
+  }

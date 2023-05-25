@@ -1,13 +1,31 @@
 chrome.webRequest.onBeforeRequest.addListener(
   function(details) {
-    console.log("url: "+details.url); // Access the URL of the request
-    console.log("method: "+details.method); // Access the HTTP method (GET, POST, etc.)
-    console.log("header: "+details.requestHeaders); // Access the request headers
-    console.log("body: "+details.requestBody); // Access the request body data
+    if (details.method !="POST" && !details.url.includes("/signin")){
+      console.log("NOT A SIGN IN REQUEST");
+      return;
+    }
+    const body = details.requestBody;
 
-    // Perform any necessary operations with the request data
+    if (body==undefined){
+      console.log("BODY UNDEFINED");
+      return;
+    }
 
-    // Return {cancel: true} to cancel the request, if desired
+    console.log("url: "+details.url); 
+    console.log("method: "+details.method); 
+    console.log("header: "+details.requestHeaders); 
+    console.log("body: "+details.requestBody); 
+
+    const formData = body.formData;
+    if (formData===undefined){
+      console.log("FORMDATA UNDEFINED");
+      return;
+    }
+
+
+    for (const key in formData){
+      console.log(key+": "+formData[key]);
+    }
   },
   {urls: ["<all_urls>"]},
   ["requestBody","extraHeaders"],
